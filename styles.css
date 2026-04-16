@@ -40,6 +40,7 @@ body {
   position: absolute;
   filter: blur(0.4px) saturate(104%);
   opacity: 0.68;
+  will-change: transform, opacity;
 }
 
 .blob {
@@ -57,6 +58,7 @@ body {
   top: -8%;
   left: -6%;
   background: radial-gradient(circle at 35% 30%, var(--sun), var(--orange) 50%, transparent 75%);
+  animation: floatA 10.5s ease-in-out infinite;
 }
 
 .blob-b {
@@ -69,6 +71,7 @@ body {
   top: 8%;
   right: -10%;
   background: radial-gradient(circle at 42% 44%, #83f7d0, var(--cyan) 58%, transparent 78%);
+  animation: floatB 12s ease-in-out infinite;
 }
 
 .blob-c {
@@ -82,6 +85,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   background: radial-gradient(circle at 50% 42%, #8aa4ff, var(--hot-pink) 62%, transparent 84%);
+  animation: floatC 13.5s ease-in-out infinite;
 }
 
 .pillar {
@@ -96,6 +100,7 @@ body {
   right: 12%;
   top: 12%;
   background: linear-gradient(180deg, rgba(249, 78, 165, 0.62), rgba(68, 86, 201, 0.66));
+  animation: breatheA 8.5s ease-in-out infinite;
 }
 
 .pillar-b {
@@ -103,6 +108,7 @@ body {
   left: 10%;
   bottom: 8%;
   background: linear-gradient(180deg, rgba(255, 208, 88, 0.62), rgba(53, 213, 193, 0.62));
+  animation: breatheB 9.5s ease-in-out infinite;
 }
 
 .grain {
@@ -128,14 +134,16 @@ body {
     radial-gradient(circle at 8% -8%, rgba(255, 115, 79, 0.18), transparent 45%),
     radial-gradient(circle at 96% 14%, rgba(53, 213, 193, 0.2), transparent 42%),
     linear-gradient(165deg, rgba(250, 244, 255, 0.45), rgba(255, 255, 255, 0)),
-    color-mix(in srgb, var(--card) 90%, white 10%);
-  border: 1px solid color-mix(in srgb, var(--line) 88%, #ffffff 12%);
+    color-mix(in srgb, var(--card) 72%, white 28%);
+  border: 1px solid rgba(255, 255, 255, 0.52);
   border-radius: 20px;
   padding: 2rem;
   box-shadow:
-    0 20px 55px rgba(45, 30, 84, 0.14),
-    0 1px 0 rgba(255, 255, 255, 0.65) inset;
-  backdrop-filter: blur(1px);
+    0 22px 56px rgba(45, 30, 84, 0.18),
+    0 1px 0 rgba(255, 255, 255, 0.75) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.18) inset;
+  backdrop-filter: blur(14px) saturate(128%);
+  -webkit-backdrop-filter: blur(14px) saturate(128%);
 }
 
 .card::before,
@@ -305,9 +313,192 @@ button:not(:disabled):hover {
   margin-top: 0.5rem;
 }
 
+.result-graphic {
+  position: relative;
+  height: 190px;
+  margin: 0.8rem 0 1.1rem;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.46), rgba(255, 255, 255, 0.06)),
+    rgba(237, 238, 246, 0.52);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+}
+
+.result-graphic::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(48, 42, 68, 0.4) 0.55px, transparent 0.8px);
+  background-size: 3px 3px;
+  opacity: 0.12;
+}
+
+.glyph {
+  position: absolute;
+  --glyph-rot: 0deg;
+  border-radius: 999px;
+  mix-blend-mode: multiply;
+  filter: saturate(108%);
+  animation: glyphFloat 7.5s ease-in-out infinite;
+}
+
+.glyph-a {
+  width: 96px;
+  height: 146px;
+  left: 12%;
+  top: 22%;
+  background: linear-gradient(180deg, rgba(255, 115, 79, 0.78), rgba(249, 78, 165, 0.7));
+}
+
+.glyph-b {
+  width: 170px;
+  height: 170px;
+  left: 38%;
+  top: 8%;
+  background: radial-gradient(circle at 35% 35%, rgba(255, 211, 77, 0.85), rgba(63, 105, 217, 0.78));
+  animation-delay: -1.8s;
+}
+
+.glyph-c {
+  width: 120px;
+  height: 120px;
+  right: 8%;
+  bottom: -10%;
+  background: radial-gradient(circle at 48% 38%, rgba(127, 241, 208, 0.88), rgba(53, 213, 193, 0.76));
+  animation-delay: -3.1s;
+}
+
+.result-card[data-archetype="bridge"] .glyph-a {
+  --glyph-rot: -16deg;
+}
+
+.result-card[data-archetype="bridge"] .glyph-b {
+  border-radius: 42% 58% 55% 45% / 48% 44% 56% 52%;
+}
+
+.result-card[data-archetype="adapter"] .glyph-a {
+  border-radius: 18px;
+  --glyph-rot: 10deg;
+}
+
+.result-card[data-archetype="adapter"] .glyph-b {
+  border-radius: 28px;
+}
+
+.result-card[data-archetype="rootKeeper"] .glyph-a {
+  left: 8%;
+  height: 164px;
+  background: linear-gradient(180deg, rgba(53, 213, 193, 0.8), rgba(63, 105, 217, 0.72));
+}
+
+.result-card[data-archetype="rootKeeper"] .glyph-c {
+  width: 136px;
+  height: 136px;
+  bottom: -16%;
+}
+
+.result-card[data-archetype="splitSelf"] .glyph-a {
+  border-radius: 999px 999px 20px 20px;
+  --glyph-rot: -10deg;
+}
+
+.result-card[data-archetype="splitSelf"] .glyph-b {
+  background: linear-gradient(
+    90deg,
+    rgba(249, 78, 165, 0.76) 0%,
+    rgba(249, 78, 165, 0.76) 48%,
+    rgba(63, 105, 217, 0.76) 52%,
+    rgba(63, 105, 217, 0.76) 100%
+  );
+}
+
+.result-card[data-archetype="drifter"] .glyph-a {
+  left: 4%;
+  top: 45%;
+  width: 82px;
+  height: 82px;
+}
+
+.result-card[data-archetype="drifter"] .glyph-b {
+  left: 26%;
+  top: -18%;
+}
+
+.result-card[data-archetype="drifter"] .glyph-c {
+  right: -7%;
+  bottom: 10%;
+}
+
 .note {
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+@keyframes floatA {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(14px, -12px, 0) scale(1.04);
+  }
+}
+
+@keyframes floatB {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-16px, 10px, 0) scale(1.05);
+  }
+}
+
+@keyframes floatC {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-16px) scale(1.03);
+  }
+}
+
+@keyframes breatheA {
+  0%,
+  100% {
+    transform: scaleY(1);
+    opacity: 0.44;
+  }
+  50% {
+    transform: scaleY(1.08);
+    opacity: 0.58;
+  }
+}
+
+@keyframes breatheB {
+  0%,
+  100% {
+    transform: scaleY(1);
+    opacity: 0.42;
+  }
+  50% {
+    transform: scaleY(0.93);
+    opacity: 0.56;
+  }
+}
+
+@keyframes glyphFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--glyph-rot));
+  }
+  50% {
+    transform: translateY(-8px) rotate(var(--glyph-rot));
+  }
 }
 
 @media (max-width: 640px) {
@@ -326,5 +517,9 @@ button:not(:disabled):hover {
 
   .actions button {
     width: 100%;
+  }
+
+  .result-graphic {
+    height: 160px;
   }
 }
