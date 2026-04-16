@@ -1,13 +1,17 @@
 :root {
-  --bg: #ddd9d2;
-  --card: #f4f1ec;
-  --text: #2f2c28;
-  --muted: #6d665e;
-  --line: #ccc4bb;
-  --accent: #5f7668;
-  --accent-soft: #dce5de;
-  --accent-strong: #496557;
-  --surface: #f9f7f3;
+  --bg: #efeee8;
+  --card: #f7f5f0;
+  --text: #232129;
+  --muted: #6f6b78;
+  --line: #d7d1dc;
+  --accent: #3f69d9;
+  --accent-soft: #e3e8ff;
+  --accent-strong: #2f4eb1;
+  --surface: #fcfbf8;
+  --hot-pink: #f94ea5;
+  --sun: #ffd34d;
+  --cyan: #35d5c1;
+  --orange: #ff734f;
 }
 
 * {
@@ -18,29 +22,144 @@ body {
   margin: 0;
   font-family: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
   color: var(--text);
-  background:
-    radial-gradient(circle at 14% 16%, rgba(255, 255, 255, 0.52), transparent 38%),
-    radial-gradient(circle at 86% 2%, rgba(125, 150, 136, 0.22), transparent 32%),
-    linear-gradient(180deg, #ece8e2 0%, var(--bg) 100%);
+  background: var(--bg);
   min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.bg-art {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.blob,
+.pillar {
+  position: absolute;
+  filter: blur(0.4px) saturate(104%);
+  opacity: 0.68;
+}
+
+.blob {
+  border-radius: 999px;
+  mix-blend-mode: multiply;
+}
+
+.blob-a {
+  width: 36vw;
+  min-width: 260px;
+  max-width: 420px;
+  height: 36vw;
+  min-height: 260px;
+  max-height: 420px;
+  top: -8%;
+  left: -6%;
+  background: radial-gradient(circle at 35% 30%, var(--sun), var(--orange) 50%, transparent 75%);
+}
+
+.blob-b {
+  width: 34vw;
+  min-width: 240px;
+  max-width: 390px;
+  height: 34vw;
+  min-height: 240px;
+  max-height: 390px;
+  top: 8%;
+  right: -10%;
+  background: radial-gradient(circle at 42% 44%, #83f7d0, var(--cyan) 58%, transparent 78%);
+}
+
+.blob-c {
+  width: 42vw;
+  min-width: 290px;
+  max-width: 500px;
+  height: 42vw;
+  min-height: 290px;
+  max-height: 500px;
+  bottom: -16%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle at 50% 42%, #8aa4ff, var(--hot-pink) 62%, transparent 84%);
+}
+
+.pillar {
+  width: clamp(88px, 11vw, 130px);
+  border-radius: 999px;
+  opacity: 0.44;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.pillar-a {
+  height: 42vh;
+  right: 12%;
+  top: 12%;
+  background: linear-gradient(180deg, rgba(249, 78, 165, 0.62), rgba(68, 86, 201, 0.66));
+}
+
+.pillar-b {
+  height: 31vh;
+  left: 10%;
+  bottom: 8%;
+  background: linear-gradient(180deg, rgba(255, 208, 88, 0.62), rgba(53, 213, 193, 0.62));
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  mix-blend-mode: multiply;
+  background-image: radial-gradient(rgba(50, 46, 60, 0.4) 0.55px, transparent 0.8px);
+  background-size: 3px 3px;
 }
 
 .app {
   width: min(760px, 92vw);
   margin: clamp(2rem, 5vh, 4rem) auto;
+  position: relative;
+  z-index: 1;
 }
 
 .card {
+  position: relative;
+  overflow: hidden;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0)),
+    radial-gradient(circle at 8% -8%, rgba(255, 115, 79, 0.18), transparent 45%),
+    radial-gradient(circle at 96% 14%, rgba(53, 213, 193, 0.2), transparent 42%),
+    linear-gradient(165deg, rgba(250, 244, 255, 0.45), rgba(255, 255, 255, 0)),
     color-mix(in srgb, var(--card) 90%, white 10%);
   border: 1px solid color-mix(in srgb, var(--line) 88%, #ffffff 12%);
   border-radius: 20px;
   padding: 2rem;
   box-shadow:
-    0 18px 45px rgba(35, 30, 25, 0.1),
+    0 20px 55px rgba(45, 30, 84, 0.14),
     0 1px 0 rgba(255, 255, 255, 0.65) inset;
   backdrop-filter: blur(1px);
+}
+
+.card::before,
+.card::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.card::before {
+  width: 165px;
+  height: 165px;
+  background: radial-gradient(circle, rgba(63, 105, 217, 0.18), transparent 70%);
+  top: -72px;
+  right: -52px;
+}
+
+.card::after {
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(249, 78, 165, 0.2), transparent 72%);
+  bottom: -55px;
+  left: -30px;
 }
 
 .hidden {
@@ -102,9 +221,11 @@ p {
 
 .answer-option {
   border: 1px solid color-mix(in srgb, var(--line) 86%, white 14%);
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 0.9rem 1rem;
-  background: var(--surface);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.64), rgba(255, 255, 255, 0)),
+    var(--surface);
   box-shadow: 0 2px 10px rgba(30, 28, 25, 0.04);
   transition:
     border-color 140ms ease,
@@ -114,9 +235,9 @@ p {
 }
 
 .answer-option:hover {
-  border-color: #9ea89f;
-  transform: translateY(-1px);
-  box-shadow: 0 7px 18px rgba(30, 28, 25, 0.08);
+  border-color: color-mix(in srgb, var(--accent) 55%, #c8bfda 45%);
+  transform: translateY(-2px);
+  box-shadow: 0 9px 20px rgba(57, 48, 88, 0.12);
 }
 
 .answer-option input {
@@ -125,9 +246,12 @@ p {
 }
 
 .answer-option.selected {
-  background: var(--accent-soft);
-  border-color: #89a193;
-  box-shadow: 0 8px 18px rgba(73, 101, 87, 0.16);
+  background:
+    radial-gradient(circle at 92% 18%, rgba(249, 78, 165, 0.2), transparent 46%),
+    radial-gradient(circle at 4% 84%, rgba(53, 213, 193, 0.22), transparent 44%),
+    var(--accent-soft);
+  border-color: color-mix(in srgb, var(--accent) 70%, #b6acd6 30%);
+  box-shadow: 0 8px 20px rgba(63, 71, 145, 0.18);
 }
 
 .actions {
@@ -161,20 +285,20 @@ button:not(:disabled):hover {
 }
 
 .primary-btn {
-  background: linear-gradient(180deg, #6f8678, var(--accent-strong));
+  background: linear-gradient(140deg, var(--hot-pink), var(--accent));
   color: #f8f8f6;
-  box-shadow: 0 10px 20px rgba(73, 101, 87, 0.28);
+  box-shadow: 0 12px 24px rgba(98, 53, 148, 0.3);
 }
 
 .primary-btn:not(:disabled):hover {
-  box-shadow: 0 12px 22px rgba(73, 101, 87, 0.34);
+  box-shadow: 0 14px 28px rgba(98, 53, 148, 0.38);
 }
 
 .secondary-btn {
-  background: color-mix(in srgb, white 65%, var(--card) 35%);
-  border-color: color-mix(in srgb, var(--line) 92%, white 8%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.62));
+  border-color: color-mix(in srgb, var(--line) 86%, #ffffff 14%);
   color: var(--text);
-  box-shadow: 0 4px 10px rgba(30, 28, 25, 0.06);
+  box-shadow: 0 4px 12px rgba(30, 28, 50, 0.08);
 }
 
 .result-card p {
@@ -187,6 +311,10 @@ button:not(:disabled):hover {
 }
 
 @media (max-width: 640px) {
+  .pillar {
+    display: none;
+  }
+
   .card {
     padding: 1.2rem;
     border-radius: 14px;
