@@ -116,9 +116,196 @@
         <p class="kicker">Your Reflection</p>
         <h2 id="resultTitle"></h2>
         <div class="result-graphic" id="resultGraphic" aria-hidden="true">
-          <span class="glyph glyph-a"></span>
-          <span class="glyph glyph-b"></span>
-          <span class="glyph glyph-c"></span>
+          <!-- The Bridge: arch connecting two worlds + two small figures -->
+          <svg
+            class="archetype-illustration archetype-illustration--bridge"
+            viewBox="0 0 320 180"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="bridge-worldL" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ffb86c" />
+                <stop offset="100%" stop-color="#ff6b6b" />
+              </linearGradient>
+              <linearGradient id="bridge-worldR" x1="1" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#74c0fc" />
+                <stop offset="100%" stop-color="#9775fa" />
+              </linearGradient>
+            </defs>
+            <circle cx="62" cy="102" r="40" fill="url(#bridge-worldL)" opacity="0.88" />
+            <circle cx="258" cy="102" r="40" fill="url(#bridge-worldR)" opacity="0.88" />
+            <path
+              d="M 102 118 Q 160 48 218 118"
+              fill="none"
+              stroke="#2d3142"
+              stroke-width="3.2"
+              stroke-linecap="round"
+            />
+            <line
+              x1="102"
+              y1="126"
+              x2="218"
+              y2="126"
+              stroke="#2d3142"
+              stroke-width="2"
+              stroke-opacity="0.35"
+            />
+            <circle cx="62" cy="92" r="7" fill="#2d3142" opacity="0.55" />
+            <path d="M 62 100 v 18" stroke="#2d3142" stroke-width="3" stroke-linecap="round" opacity="0.55" />
+            <circle cx="258" cy="92" r="7" fill="#2d3142" opacity="0.55" />
+            <path d="M 258 100 v 18" stroke="#2d3142" stroke-width="3" stroke-linecap="round" opacity="0.55" />
+          </svg>
+
+          <!-- The Adapter: figure centered inside a dominant “frame” -->
+          <svg
+            class="archetype-illustration archetype-illustration--adapter"
+            viewBox="0 0 320 180"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="adapter-body" x1="0.5" y1="0" x2="0.5" y2="1">
+                <stop offset="0%" stop-color="#63e6be" />
+                <stop offset="100%" stop-color="#3b82f6" />
+              </linearGradient>
+            </defs>
+            <rect
+              x="38"
+              y="32"
+              width="244"
+              height="116"
+              rx="18"
+              fill="none"
+              stroke="#495057"
+              stroke-width="2.2"
+              stroke-opacity="0.35"
+            />
+            <rect
+              x="48"
+              y="42"
+              width="224"
+              height="96"
+              rx="12"
+              fill="none"
+              stroke="#adb5bd"
+              stroke-width="1.5"
+              stroke-dasharray="5 6"
+              stroke-opacity="0.45"
+            />
+            <ellipse cx="160" cy="100" rx="26" ry="34" fill="url(#adapter-body)" opacity="0.92" />
+            <ellipse cx="160" cy="72" rx="18" ry="20" fill="#2d3142" opacity="0.45" />
+            <path
+              d="M 160 92 v 32"
+              stroke="#2d3142"
+              stroke-width="3.5"
+              stroke-linecap="round"
+              opacity="0.4"
+            />
+          </svg>
+
+          <!-- The Root Keeper: roots + grounded core -->
+          <svg
+            class="archetype-illustration archetype-illustration--rootKeeper"
+            viewBox="0 0 320 180"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="root-core" x1="0.5" y1="0" x2="0.5" y2="1">
+                <stop offset="0%" stop-color="#95d5b2" />
+                <stop offset="100%" stop-color="#2d6a4f" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M 160 172 C 120 140 90 110 72 78 C 58 52 65 38 78 28"
+              fill="none"
+              stroke="#40916c"
+              stroke-width="3"
+              stroke-linecap="round"
+            />
+            <path
+              d="M 160 172 C 200 140 230 110 248 78 C 262 52 255 38 242 28"
+              fill="none"
+              stroke="#52b788"
+              stroke-width="3"
+              stroke-linecap="round"
+            />
+            <path
+              d="M 160 172 C 145 130 138 88 140 48"
+              fill="none"
+              stroke="#1b4332"
+              stroke-width="3.5"
+              stroke-linecap="round"
+            />
+            <circle cx="160" cy="38" r="26" fill="url(#root-core)" opacity="0.95" />
+            <circle cx="160" cy="38" r="10" fill="#1b4332" opacity="0.25" />
+          </svg>
+
+          <!-- The Split Self: one form, two halves -->
+          <svg
+            class="archetype-illustration archetype-illustration--splitSelf"
+            viewBox="0 0 320 180"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="split-left" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f783ac" />
+                <stop offset="100%" stop-color="#e64980" />
+              </linearGradient>
+              <linearGradient id="split-right" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#74c0fc" />
+                <stop offset="100%" stop-color="#4c6ef5" />
+              </linearGradient>
+              <clipPath id="split-clipL">
+                <rect x="0" y="0" width="160" height="180" />
+              </clipPath>
+              <clipPath id="split-clipR">
+                <rect x="160" y="0" width="160" height="180" />
+              </clipPath>
+            </defs>
+            <g clip-path="url(#split-clipL)">
+              <ellipse cx="160" cy="98" rx="38" ry="48" fill="url(#split-left)" opacity="0.95" />
+            </g>
+            <g clip-path="url(#split-clipR)">
+              <ellipse cx="160" cy="98" rx="38" ry="48" fill="url(#split-right)" opacity="0.95" />
+            </g>
+            <line
+              x1="160"
+              y1="38"
+              x2="160"
+              y2="168"
+              stroke="#f8f9fa"
+              stroke-width="2.5"
+              stroke-opacity="0.9"
+            />
+            <circle cx="160" cy="68" r="14" fill="#2d3142" opacity="0.35" />
+          </svg>
+
+          <!-- The Drifter: wandering path, nodes never quite connect -->
+          <svg
+            class="archetype-illustration archetype-illustration--drifter"
+            viewBox="0 0 320 180"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="drift-path" x1="0" y1="1" x2="1" y2="0">
+                <stop offset="0%" stop-color="#868e96" />
+                <stop offset="100%" stop-color="#ced4da" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M 36 148 Q 90 52 150 96 Q 210 140 268 64 Q 292 40 284 124"
+              fill="none"
+              stroke="url(#drift-path)"
+              stroke-width="2.4"
+              stroke-dasharray="7 9"
+              stroke-linecap="round"
+            />
+            <circle cx="36" cy="148" r="7" fill="#495057" opacity="0.55" />
+            <circle cx="150" cy="96" r="5" fill="#868e96" opacity="0.35" />
+            <circle cx="268" cy="64" r="5" fill="#adb5bd" opacity="0.28" />
+            <circle cx="284" cy="124" r="6" fill="#ced4da" opacity="0.4" />
+            <ellipse cx="120" cy="132" rx="12" ry="16" fill="#6c757d" opacity="0.35" />
+            <circle cx="120" cy="118" r="6" fill="#495057" opacity="0.4" />
+          </svg>
         </div>
         <p id="resultBody"></p>
         <p class="note">
