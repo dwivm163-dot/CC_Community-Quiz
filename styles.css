@@ -1,0 +1,159 @@
+:root {
+  --bg: #ddd9d2;
+  --card: #f4f1ec;
+  --text: #2f2c28;
+  --muted: #6d665e;
+  --line: #ccc4bb;
+  --accent: #6f7d73;
+  --accent-soft: #d8e0d9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at top left, #e7e3dd, var(--bg) 65%);
+  min-height: 100vh;
+}
+
+.app {
+  width: min(760px, 92vw);
+  margin: 6vh auto;
+}
+
+.card {
+  background: color-mix(in srgb, var(--card) 92%, white 8%);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(35, 30, 25, 0.06);
+}
+
+.hidden {
+  display: none;
+}
+
+.kicker {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+h1,
+h2 {
+  margin: 0.5rem 0 1rem;
+  font-weight: 550;
+  line-height: 1.3;
+}
+
+p {
+  line-height: 1.6;
+  margin: 0;
+}
+
+.progress-wrap {
+  margin-bottom: 1.3rem;
+}
+
+#progressText {
+  margin: 0 0 0.45rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.progress-track {
+  height: 8px;
+  width: 100%;
+  background: #e7e2dc;
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 12.5%;
+  height: 100%;
+  background: linear-gradient(90deg, #8b978f, var(--accent));
+  transition: width 220ms ease;
+}
+
+.answers-form {
+  margin-top: 1.1rem;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.answer-option {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.85rem 0.95rem;
+  transition: border-color 140ms ease, background-color 140ms ease;
+}
+
+.answer-option:hover {
+  border-color: #a7a096;
+}
+
+.answer-option input {
+  margin-right: 0.55rem;
+}
+
+.answer-option.selected {
+  background: var(--accent-soft);
+  border-color: #95a699;
+}
+
+.actions {
+  margin-top: 1.4rem;
+}
+
+button {
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 0.75rem 1.2rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 120ms ease, opacity 120ms ease;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+button:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+.primary-btn {
+  background: var(--accent);
+  color: #f8f8f6;
+}
+
+.secondary-btn {
+  margin-top: 1.4rem;
+  background: transparent;
+  border-color: var(--line);
+  color: var(--text);
+}
+
+.result-card p {
+  margin-top: 0.5rem;
+}
+
+.note {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 1.2rem;
+    border-radius: 14px;
+  }
+}
