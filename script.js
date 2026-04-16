@@ -137,6 +137,7 @@ function resetState() {
 function showQuizView() {
   introCard.classList.add("hidden");
   resultCard.classList.add("hidden");
+  resultCard.removeAttribute("data-archetype");
   quizCard.classList.remove("hidden");
 }
 
@@ -219,6 +220,7 @@ function showResult() {
 
   quizCard.classList.add("hidden");
   resultCard.classList.remove("hidden");
+  resultCard.setAttribute("data-archetype", resultKey);
 
   resultTitle.textContent = result.label;
   resultBody.textContent = result.reflection;
