@@ -38,6 +38,7 @@ body {
 .blob,
 .pillar {
   position: absolute;
+  z-index: 3;
   filter: blur(0.4px) saturate(104%);
   opacity: 0.68;
   will-change: transform, opacity;
@@ -111,9 +112,204 @@ body {
   animation: breatheB 9.5s ease-in-out infinite;
 }
 
+/* Layered “city” blocks — overlap + multiply = merging / fragmentation */
+.bg-buildings {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.building {
+  position: absolute;
+  bottom: 0;
+  border-radius: 4px 4px 0 0;
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+  will-change: transform;
+}
+
+.building-1 {
+  left: 2%;
+  width: 11%;
+  min-width: 52px;
+  height: 58vh;
+  background: linear-gradient(180deg, rgba(255, 214, 120, 0.95), rgba(255, 200, 90, 0.75));
+  animation: driftBuilding 14s ease-in-out infinite;
+}
+
+.building-2 {
+  left: 11%;
+  width: 9%;
+  min-width: 44px;
+  height: 72vh;
+  background: linear-gradient(180deg, rgba(255, 180, 200, 0.9), rgba(240, 160, 185, 0.7));
+  animation: driftBuilding 16s ease-in-out infinite reverse;
+}
+
+.building-3 {
+  left: 22%;
+  width: 13%;
+  min-width: 58px;
+  height: 48vh;
+  background: linear-gradient(180deg, rgba(160, 210, 230, 0.92), rgba(130, 185, 215, 0.72));
+  animation: driftBuilding 18s ease-in-out infinite;
+}
+
+.building-4 {
+  right: 18%;
+  width: 10%;
+  min-width: 48px;
+  height: 65vh;
+  background: linear-gradient(180deg, rgba(170, 230, 200, 0.88), rgba(120, 200, 175, 0.68));
+  animation: driftBuilding 15s ease-in-out infinite reverse;
+}
+
+.building-5 {
+  right: 3%;
+  width: 12%;
+  min-width: 54px;
+  height: 52vh;
+  background: linear-gradient(180deg, rgba(255, 220, 160, 0.85), rgba(255, 195, 130, 0.65));
+  animation: driftBuilding 17s ease-in-out infinite;
+}
+
+/* Tall capsules / “portals” — intersect buildings, second blend pass */
+.bg-portals {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.portal {
+  position: absolute;
+  border-radius: 999px;
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+  filter: blur(0.5px);
+  will-change: transform, opacity;
+}
+
+.portal-1 {
+  width: clamp(72px, 9vw, 120px);
+  height: min(52vh, 420px);
+  left: 18%;
+  bottom: 5%;
+  background: linear-gradient(
+    185deg,
+    rgba(249, 78, 165, 0.75) 0%,
+    rgba(80, 60, 140, 0.55) 45%,
+    rgba(40, 35, 70, 0.65) 100%
+  );
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  animation: portalFloat 11s ease-in-out infinite;
+}
+
+.portal-2 {
+  width: clamp(64px, 8vw, 100px);
+  height: min(44vh, 360px);
+  right: 22%;
+  bottom: 8%;
+  background: linear-gradient(
+    175deg,
+    rgba(53, 213, 193, 0.7) 0%,
+    rgba(63, 105, 217, 0.55) 55%,
+    rgba(30, 40, 90, 0.6) 100%
+  );
+  animation: portalFloat 13s ease-in-out infinite reverse;
+}
+
+.portal-3 {
+  width: clamp(56px, 7vw, 88px);
+  height: min(38vh, 300px);
+  left: 50%;
+  bottom: 12%;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 211, 77, 0.65) 0%,
+    rgba(255, 115, 79, 0.5) 100%
+  );
+  opacity: 0.42;
+  animation: portalFloatCenter 12.5s ease-in-out infinite;
+}
+
+/* Human silhouettes — overlap portals + blocks */
+.bg-figures {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.bg-silhouette,
+.figure-pill {
+  position: absolute;
+  bottom: 0;
+  mix-blend-mode: multiply;
+  will-change: transform;
+}
+
+.sil-svg {
+  width: clamp(56px, 7vw, 92px);
+  height: auto;
+  opacity: 0.72;
+  filter: blur(0.6px);
+}
+
+.sil-a {
+  left: 6%;
+  bottom: -2%;
+  animation: figureDrift 9s ease-in-out infinite;
+}
+
+.sil-b {
+  right: 8%;
+  bottom: 0;
+  width: clamp(52px, 6.5vw, 84px);
+  animation: figureDrift 10.5s ease-in-out infinite reverse;
+}
+
+.sil-c {
+  left: 42%;
+  bottom: -4%;
+  width: clamp(48px, 6vw, 76px);
+  opacity: 0.58;
+  filter: blur(1.2px);
+  mix-blend-mode: multiply;
+  animation: figureDrift 11.5s ease-in-out infinite;
+}
+
+.figure-pill {
+  border-radius: 999px;
+  mix-blend-mode: multiply;
+  opacity: 0.62;
+  filter: blur(0.8px);
+}
+
+.figure-pill-1 {
+  width: 36px;
+  height: 112px;
+  left: 28%;
+  bottom: 6%;
+  background: linear-gradient(180deg, #e85d75, #9e1946);
+  animation: figureDrift 8.5s ease-in-out infinite;
+}
+
+.figure-pill-2 {
+  width: 32px;
+  height: 96px;
+  right: 32%;
+  bottom: 10%;
+  background: linear-gradient(180deg, #4cc9f0, #4361ee);
+  animation: figureDrift 9.8s ease-in-out infinite reverse;
+}
+
 .grain {
   position: absolute;
   inset: 0;
+  z-index: 5;
   opacity: 0.12;
   mix-blend-mode: multiply;
   background-image: radial-gradient(rgba(50, 46, 60, 0.4) 0.55px, transparent 0.8px);
@@ -501,8 +697,73 @@ button:not(:disabled):hover {
   }
 }
 
+@keyframes driftBuilding {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes portalFloat {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-14px) scale(1.03);
+  }
+}
+
+@keyframes portalFloatCenter {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-12px) scale(1.02);
+  }
+}
+
+@keyframes figureDrift {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .building,
+  .portal,
+  .bg-silhouette,
+  .figure-pill,
+  .blob,
+  .pillar {
+    animation: none !important;
+  }
+}
+
 @media (max-width: 640px) {
   .pillar {
+    display: none;
+  }
+
+  .building-3,
+  .building-4 {
+    opacity: 0.35;
+  }
+
+  .portal-3 {
+    opacity: 0.28;
+  }
+
+  .sil-c,
+  .figure-pill-2 {
     display: none;
   }
 
