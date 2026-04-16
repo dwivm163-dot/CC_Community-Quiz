@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cultural In-Between Quiz</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="card intro-card" id="introCard">
+        <p class="kicker">Reflective Identity Quiz</p>
+        <h1>Navigating Cultural In-Betweenness</h1>
+        <p>
+          This quiz explores how identity can shift across language, place,
+          behavior, and belonging. It is not a fixed label, but a reflection of
+          patterns you may recognize in yourself.
+        </p>
+        <button id="startBtn" class="primary-btn">Begin</button>
+      </section>
+
+      <section class="card quiz-card hidden" id="quizCard">
+        <div class="progress-wrap">
+          <p id="progressText">Question 1 of 8</p>
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+        <h2 id="questionText"></h2>
+        <form id="answersForm" class="answers-form"></form>
+        <div class="actions">
+          <button id="nextBtn" class="primary-btn" type="button" disabled>
+            Next
+          </button>
+        </div>
+      </section>
+
+      <section class="card result-card hidden" id="resultCard">
+        <p class="kicker">Your Reflection</p>
+        <h2 id="resultTitle"></h2>
+        <p id="resultBody"></p>
+        <p class="note">
+          These archetypes are fluid. You may move across them over time,
+          context, and life stages.
+        </p>
+        <button id="restartBtn" class="secondary-btn">Retake Quiz</button>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
