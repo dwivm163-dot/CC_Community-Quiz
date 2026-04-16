@@ -511,8 +511,15 @@ button:not(:disabled):hover {
 
 .result-graphic {
   position: relative;
-  height: 190px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   margin: 0.8rem 0 1.1rem;
+  padding: 1rem 1.15rem 1.15rem;
+  box-sizing: border-box;
+  /* Room for full 320×180 viewBox art (was 190px — too short and clipped the SVG) */
+  min-height: 260px;
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.45);
@@ -535,13 +542,12 @@ button:not(:disabled):hover {
 /* One thematic illustration per archetype (shown via data-archetype on .result-card) */
 .archetype-illustration {
   display: none;
-  position: absolute;
-  left: 0;
-  top: 0;
   width: 100%;
-  height: 100%;
-  padding: 0.65rem 0.85rem;
-  object-fit: contain;
+  height: auto;
+  max-width: 100%;
+  flex: 0 0 auto;
+  padding: 0;
+  vertical-align: middle;
   animation: archetypeFloat 8s ease-in-out infinite;
 }
 
@@ -618,7 +624,7 @@ button:not(:disabled):hover {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
   }
 }
 
@@ -707,6 +713,7 @@ button:not(:disabled):hover {
   }
 
   .result-graphic {
-    height: 160px;
+    min-height: 220px;
+    padding: 0.75rem 0.85rem 0.95rem;
   }
 }
