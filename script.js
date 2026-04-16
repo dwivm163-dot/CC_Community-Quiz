@@ -45,7 +45,7 @@ const questions = [
     prompt: "Where do you feel most like yourself?",
     options: [
       { text: "At home", scores: { rootKeeper: 2 } },
-      { text: "Outside (school/work/social)", scores: { adapter: 2 } },
+      { text: "Outside", scores: { adapter: 2 } },
       { text: "Both, but in different ways", scores: { splitSelf: 2 } },
       { text: "Neither fully", scores: { drifter: 2 } },
     ],
@@ -115,6 +115,7 @@ const quizCard = document.getElementById("quizCard");
 const resultCard = document.getElementById("resultCard");
 const startBtn = document.getElementById("startBtn");
 const restartBtn = document.getElementById("restartBtn");
+const backBtn = document.getElementById("backBtn");
 const nextBtn = document.getElementById("nextBtn");
 const questionText = document.getElementById("questionText");
 const answersForm = document.getElementById("answersForm");
@@ -125,18 +126,12 @@ const resultBody = document.getElementById("resultBody");
 
 let currentIndex = 0;
 let selectedOptionIndex = null;
-let scores = {};
+let selectedAnswers = [];
 
 function resetState() {
   currentIndex = 0;
   selectedOptionIndex = null;
-  scores = {
-    bridge: 0,
-    adapter: 0,
-    rootKeeper: 0,
-    splitSelf: 0,
-    drifter: 0,
-  };
+  selectedAnswers = new Array(questions.length).fill(null);
 }
 
 function showQuizView() {
@@ -147,8 +142,9 @@ function showQuizView() {
 
 function renderQuestion() {
   const q = questions[currentIndex];
-  selectedOptionIndex = null;
-  nextBtn.disabled = true;
+  selectedOptionIndex = selectedAnswers[currentIndex];
+  nextBtn.disabled = selectedOptionIndex === null;
+  backBtn.disabled = currentIndex === 0;
 
   questionText.textContent = q.prompt;
   progressText.textContent = `Question ${currentIndex + 1} of ${questions.length}`;
@@ -166,6 +162,7 @@ function renderQuestion() {
     input.name = `question-${currentIndex}`;
     input.id = optionId;
     input.value = String(idx);
+    input.checked = idx === selectedOptionIndex;
 
     input.addEventListener("change", () => {
       selectedOptionIndex = idx;
@@ -179,6 +176,9 @@ function renderQuestion() {
     const textNode = document.createTextNode(option.text);
     label.appendChild(input);
     label.appendChild(textNode);
+    if (idx === selectedOptionIndex) {
+      label.classList.add("selected");
+    }
     answersForm.appendChild(label);
   });
 
@@ -186,14 +186,22 @@ function renderQuestion() {
     currentIndex === questions.length - 1 ? "See Reflection" : "Next";
 }
 
-function scoreCurrentAnswer() {
-  const chosen = questions[currentIndex].options[selectedOptionIndex];
-  Object.entries(chosen.scores).forEach(([key, value]) => {
-    scores[key] += value;
-  });
-}
-
 function selectResultArchetype() {
+  const scores = {
+    bridge: 0,
+    adapter: 0,
+    rootKeeper: 0,
+    splitSelf: 0,
+    drifter: 0,
+  };
+
+  selectedAnswers.forEach((answerIndex, questionIndex) => {
+    const chosen = questions[questionIndex].options[answerIndex];
+    Object.entries(chosen.scores).forEach(([key, value]) => {
+      scores[key] += value;
+    });
+  });
+
   const maxScore = Math.max(...Object.values(scores));
   const tied = Object.keys(scores).filter((key) => scores[key] === maxScore);
 
@@ -227,7 +235,7 @@ nextBtn.addEventListener("click", () => {
     return;
   }
 
-  scoreCurrentAnswer();
+  selectedAnswers[currentIndex] = selectedOptionIndex;
 
   if (currentIndex < questions.length - 1) {
     currentIndex += 1;
@@ -236,6 +244,16 @@ nextBtn.addEventListener("click", () => {
   }
 
   showResult();
+});
+
+backBtn.addEventListener("click", () => {
+  selectedAnswers[currentIndex] = selectedOptionIndex;
+  if (currentIndex === 0) {
+    return;
+  }
+
+  currentIndex -= 1;
+  renderQuestion();
 });
 
 restartBtn.addEventListener("click", () => {
